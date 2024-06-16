@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Конфигуратор</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/comp.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/comp.ico') }}">
+    <script src="{{ url_for('static', filename='scripts/transform-function.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/context-menu.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/container.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/compability-category-list.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/click-script.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/save_build.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/json_savebuild.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/modal.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='scripts/total_sum.js') }}"></script> -->
+    <style>
+        /* Добавим стили для модального окна */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #1c6b65;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 100%;
+            max-width: 300px;
+            position:fixed;
+            left: calc(50% - 150px);
+            display: ruby;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Стили для переключателей страниц */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        #total-price-label{
+            color: black;
+        }
+        .save-build {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            width:fit-content;
+            transform: translateX(250%);
+            margin: 50px 10px;
+        }
+
+        .save-build:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="Mainnav">
+        <p class="UserInfo">Добро пожаловать</p>
+        <div class="Line"></div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('contact') }}" class="ContactLink">Контакты</a></li>
+            <li><a href="{{ url_for('aboutus') }}" class="AboutLink">О нас</a></li>
+        </ul>
+        <div class="Logo">
+            <a href="{{ url_for('index') }}" class="logo-link">
+                <img class="Logo1" src="{{ url_for('static', filename='images/PClogo.png') }}" alt="PC Logo">
+            </a>
+        </div>
+        <button id="myButton" onclick="toggleContextMenu(event)">меню</button>
+        <script src="{{ url_for('static', filename='scripts/context-menu.js') }}"></script>
+        <div id="contextMenu" style="z-index: 9999;">
+            <a href="{{ url_for('login') }}" id="personalAccountLink">Личный кабинет</a>
+            <p>{{ current_user.username }}! Твой ID: {{ current_user.id }}</p>
+            {% if current_user.avatar %}
+            <img src="{{ url_for('static', filename='avatars/' + current_user.avatar) }}" alt="Аватар пользователя" style="padding-left: 0%;width: 100%;max-width: 150px;max-height: 100px;height: auto;">
+            {% else %}
+                <p>У пользователя нет аватарки</p>
+            {% endif %}
+            <p><a href="{{ url_for('logout') }}" class="logout-button">Выйти</a></p>
+            <a href="configurator.html" class="mobile-only">Конфигуратор</a>
+            <a href="newspage.html" class="mobile-only">Новости</a>
+            <a href="https://vk.com/pcsolutionweb" class="mobile-only">Группа Вконтакте</a>
+        </div>
+    </div>
+    <div class="Bottomnav">
+        <ul>
+            <li><a href="/news">Новости</a></li>
+            <li><a href="https://vk.com/pcsolutionweb">Группа Вконтакте</a></li>
+            <li><a href="/configurator">Конфигуратор</a></li>
+        </ul>
+    </div>
+
+    <div class="compatibility-container">
+        <div class="compatibility-category" data-list="videocards-list">
+            <h2>Видеокарты</h2>
+            <div class="compatibility-items" id="videocards-list">
+                {% if videocards %}
+                    {% for videocard in videocards %}
+                        <div class="compatibility-item" 
+                            data-name="{{ videocard.name }}"
+                            data-производитель="{{ videocard.manufacturer }}"
+                            data-объем_видеопамяти="{{ videocard.vram_capacity }}"
+                            data-интерфейс="{{ videocard.interface }}"
+                            data-цена="{{ videocard.price }}"
+                            data-бренд="{{ videocard.chipset_brand }}"
+                            data-базовая_частота="{{ videocard.core_clock }}"
+                            data-максимальная_частота="{{ videocard.boost_clock }}"
+                            data-тип_видеопамяти="{{ videocard.vram_type }}">
+                            {{ videocard.name }}
+                            <button class="select-item">Выбрать</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Нет доступных видеокарт.</p>
+                {% endif %}
+            </div>
+            <div class="pagination" id="videocards-pagination"></div>
+        </div>
+        
+        <div class="compatibility-category" data-list="processors-list">
+            <h2>Процессоры</h2>
+            <div class="compatibility-items" id="processors-list">
+                {% if processors %}
+                    {% for processor in processors %}
+                        <div class="compatibility-item" 
+                            data-name="{{ processor.name }}"
+                            data-производитель="{{ processor.manufacturer }}"
+                            data-ядра="{{ processor.cores }}"
+                            data-потоки="{{ processor.threads }}"
+                            data-базовая_частота="{{ processor.base_clock }}"
+                            data-максимальная_частота="{{ processor.boost_clock }}"
+                            data-сокет="{{ processor.socket }}"
+                            data-цена="{{ processor.price }}"
+                            data-тепловыделение="{{ processor.tdp }}">
+                            {{ processor.name }}
+                            <button class="select-item">Выбрать</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Нет доступных процессоров.</p>
+                {% endif %}
+            </div>
+
+            <div class="pagination" id="processors-pagination"></div>
+        </div>
+        <div class="compatibility-category" data-list="motherboards-list">
+            <h2>Материнские платы</h2>
+            <div class="compatibility-items" id="motherboards-list">
+                {% if motherboards %}
+                    {% for motherboard in motherboards %}
+                        <div class="compatibility-item" 
+                            data-name="{{ motherboard.name }}"
+                            data-производитель="{{ motherboard.manufacturer }}"
+                            data-Сокет="{{motherboard.socket}}"
+                            data-форм_фактор="{{ motherboard.form_factor }}"
+                            data-цена="{{ motherboard.price }}"
+                            data-тип_поддерживаемой_памяти="{{ motherboard.memory_type_support }}"
+                            data-количество_слотов_памяти="{{ motherboard.memory_slots }}"
+                            data-максимальный_объем_памяти="{{ motherboard.max_memory }}"
+                            data-количество_PCI_Express_слотов="{{ motherboard.pci_express_slots }}"
+                            data-чипсет="{{ motherboard.chipset }}"> 
+                            {{ motherboard.name }}
+                            <button class="select-item">Выбрать</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Нет доступных материнских плат.</p>
+                {% endif %}
+            </div>
+            <div class="pagination" id="motherboards-pagination"></div>
+        </div>
+
+        <div class="compatibility-category" data-list="psus-list">
+            <h2>Блоки питания</h2>
+            <div class="compatibility-items" id="psus-list">
+                {% if psus %}
+                    {% for psu in psus %}
+                        <div class="compatibility-item" 
+                            data-name="{{ psu.name }}"
+                            data-производитель="{{ psu.manufacturer }}"
+                            data-мощность="{{ psu.wattage }}"
+                            data-цена="{{ psu.price }}"
+                            data-класс_эффективности="{{ psu.efficiency_rating }}"
+                            data-модульность="{{ 'Да' if psu.modular else 'Нет' }}"> <!-- Добавлено поле модульность -->
+                            {{ psu.name }}
+                            <button class="select-item">Выбрать</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Нет доступных блоков питания.</p>
+                {% endif %}
+            </div>
+            <div class="pagination" id="psus-pagination"></div>
+        </div>
+
+        <div class="compatibility-category" data-list="ram-list">
+            <h2>Оперативная память</h2>
+            <div class="compatibility-items" id="ram-list">
+                {% if ram %}
+                    {% for ram_module in ram %}
+                        <div class="compatibility-item"
+                            data-name="{{ ram_module.name }}"
+                            data-производитель="{{ ram_module.manufacturer }}"
+                            data-объем="{{ ram_module.capacity }}"
+                            data-частота="{{ ram_module.speed }}"
+                            data-цена="{{ ram_module.price }}"
+                            data-тип_памяти="{{ ram_module.memory_type }}"> <!-- Добавлено поле тип памяти -->
+                            {{ ram_module.name }}
+                            <button class="select-item">Выбрать</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Нет доступной оперативной памяти.</p>
+                {% endif %}
+            </div>
+            <div class="pagination" id="ram-pagination"></div>
+        </div>
+
+        <div class="compatibility-category" data-list="harddrives-list">
+            <h2>Жесткие диски</h2>
+            <div class="compatibility-items" id="harddrives-list">
+                {% if harddrives %}
+                    {% for harddrive in harddrives %}
+                        <div class="compatibility-item" 
+                            data-name="{{ harddrive.name }}"
+                            data-производитель="{{ harddrive.manufacturer }}"
+                            data-емкость="{{ harddrive.capacity }}"
+                            data-интерфейс="{{ harddrive.interface }}"
+                            data-форм_фактор="{{ harddrive.form_factor }}"
+                            data-цена="{{ harddrive.price }}">
+                            {{ harddrive.name }}
+                            <button class="select-item">Выбрать</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Нет доступных жестких дисков.</p>
+                {% endif %}
+            </div>
+            <div class="pagination" id="harddrives-pagination"></div>
+        </div>
+
+        <div class="compatibility-category" data-list="cases-list">
+            <h2>Корпуса</h2>
+            <div class="compatibility-items" id="cases-list">
+                {% if cases %}
+                    {% for case in cases %}
+                        <div class="compatibility-item" 
+                            data-name="{{ case.name }}"
+                            data-производитель="{{ case.manufacturer }}"
+                            data-форм_фактор="{{ case.form_factor }}"
+                            data-цена="{{ case.price }}"
+                            data-usb_порты="{{ case.usb_ports }}"
+                            data-отсеки_для_накопителей="{{ case.drive_bays }}"> <!-- Добавлено поле отсеки для накопителей -->
+                            {{ case.name }}
+                            <button class="select-item">Выбрать</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Нет доступных корпусов.</p>
+                {% endif %}
+            </div>
+            <div class="pagination" id="cases-pagination"></div>
+        </div>
+
+        <div class="compatibility-category" data-list="keyboards-list">
+            <h2>Клавиатуры</h2>
+            <div class="compatibility-items" id="keyboards-list">
+                {% if keyboards %}
+                    {% for keyboard in keyboards %}
+                        <div class="compatibility-item" 
+                            data-name="{{ keyboard.name }}"
+                            data-производитель="{{ keyboard.manufacturer }}"
+                            data-тип="{{ keyboard.connectivity }}" 
+                            data-цена="{{ keyboard.price }}"
+                            data-подсветка="{{ keyboard.backlight }}">
+                            {{ keyboard.name }}
+                            <button class="select-item">Выбрать</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Нет доступных клавиатур.</p>
+                {% endif %}
+            </div>
+            <div class="pagination" id="keyboards-pagination"></div>
+        </div>
+
+        <div class="compatibility-category" data-list="mice-list">
+            <h2>Мыши</h2>
+            <div class="compatibility-items" id="mice-list">
+                {% if mice %}
+                    {% for mouse in mice %}
+                        <div class="compatibility-item" 
+                            data-name="{{ mouse.name }}"
+                            data-производитель="{{ mouse.manufacturer }}"
+                            data-тип="{{ mouse.connectivity }}"
+                            data-цена="{{ mouse.price }}"
+                            data-dpi="{{ mouse.dpi }}">
+                            {{ mouse.name }}
+                            <button class="select-item">Выбрать</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Нет доступных мышей.</p>
+                {% endif %}
+            </div>
+            <div class="pagination" id="mice-pagination"></div>
+        </div>
+
+        <div class="compatibility-category" data-list="monitors-list">
+            <h2>Мониторы</h2>
+            <div class="compatibility-items" id="monitors-list">
+                {% if monitors %}
+                    {% for monitor in monitors %}
+                        <div class="compatibility-item" 
+                            data-name="{{ monitor.name }}"
+                            data-производитель="{{ monitor.manufacturer }}"
+                            data-размер="{{ monitor.display_size }}"
+                            data-разрешение="{{ monitor.resolution }}"
+                            data-цена="{{ monitor.price }}"
+                            data-частота_обновления="{{ monitor.refresh_rate }}"
+                            data-тип_панели="{{ monitor.panel_type }}"> 
+                            {{ monitor.name }}
+                            <button class="select-item">Выбрать</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Нет доступных мониторов.</p>
+                {% endif %}
+            </div>
+            <div class="pagination" id="monitors-pagination"></div>
+        </div>
+
+        <div class="compatibility-category" data-list="coolingsystems-list">
+            <h2>Системы охлаждения</h2>
+            <div class="compatibility-items" id="coolingsystems-list">
+                {% if coolingsystems %}
+                    {% for coolingsystem in coolingsystems %}
+                        <div class="compatibility-item" 
+                            data-name="{{ coolingsystem.name }}"
+                            data-производитель="{{ coolingsystem.manufacturer }}" 
+                            data-тип="{{ coolingsystem.type }}"
+                            data-цена="{{ coolingsystem.price }}"
+                            data-размер_вентилятора="{{ coolingsystem.fan_size }}"> 
+                            {{ coolingsystem.name }}
+                            <button class="select-item">Выбрать</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Нет доступных систем охлаждения.</p>
+                {% endif %}
+            </div>
+            <div class="pagination" id="coolingsystems-pagination"></div>
+        </div>
+
+        <input type="hidden" id="user_id" value="{{ current_user.id }}">
+
+        <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Введите имя сборки:</p>
+            <input type="text" id="build-name-input"> <!-- Поле для ввода имени сборки -->
+            <p id="total-price-label">Общая стоимость: <span id="total-price">0</span></p>
+            <button id="save-build-btn">Сохранить</button> <!-- Новая кнопка сохранения -->
+        </div>
+    </div>
+
+            <!-- Кнопка сохранения сборки -->
+            <button id="save-build" class="save-build">Сохранить сборку</button>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    setupPagination('videocards-list', 'videocards-pagination');
+                    setupPagination('processors-list', 'processors-pagination');
+                    setupPagination('motherboards-list', 'motherboards-pagination');
+                    setupPagination('psus-list', 'psus-pagination');
+                    setupPagination('ram-list', 'ram-pagination');
+                    setupPagination('harddrives-list', 'harddrives-pagination');
+                    setupPagination('cases-list', 'cases-pagination');
+                    setupPagination('keyboards-list', 'keyboards-pagination');
+                    setupPagination('mice-list', 'mice-pagination');
+                    setupPagination('monitors-list', 'monitors-pagination');
+                    setupPagination('coolingsystems-list', 'coolingsystems-pagination');
+                });
+            
+                function setupPagination(listId, paginationId) {
+                    const list = document.getElementById(listId);
+                    const pagination = document.getElementById(paginationId);
+                    const items = Array.from(list.getElementsByClassName('compatibility-item'));
+                    const itemsPerPage = 5;
+                    let currentPage = 1;
+                    const totalPages = Math.ceil(items.length / itemsPerPage);
+            
+                    function displayItems() {
+                        list.innerHTML = '';
+                        const start = (currentPage - 1) * itemsPerPage;
+                        const end = start + itemsPerPage;
+                        const paginatedItems = items.slice(start, end);
+            
+                        paginatedItems.forEach(item => list.appendChild(item));
+                    }
+            
+                    function createPagination() {
+                        pagination.innerHTML = '';
+            
+                        for (let i = 1; i <= totalPages; i++) {
+                            const button = document.createElement('button');
+                            button.textContent = i;
+                            if (i === currentPage) {
+                                button.disabled = true;
+                            }
+                            button.addEventListener('click', () => {
+                                currentPage = i;
+                                displayItems();
+                                createPagination();
+                            });
+                            pagination.appendChild(button);
+                        }
+                    }
+            
+                    displayItems();
+                    createPagination();
+                }
+            
+                document.getElementById('save-build').addEventListener('click', function() {
+                    const modal = document.getElementById('myModal');
+                    modal.style.display = 'block';
+                });
+            
+                document.querySelector('.close').addEventListener('click', function() {
+                    const modal = document.getElementById('myModal');
+                    modal.style.display = 'none';
+                });
+            
+                window.onclick = function(event) {
+                    const modal = document.getElementById('myModal');
+                    if (event.target == modal) {
+                        modal.style.display = 'none';
+                    }
+                };
+            </script>
+            
+    </div>
+        <!-- Footer -->
+<footer class="footer">
+    <div class="footer-links">
+        <a href="{{ url_for('contact') }}" class="footer-link">Контакты</a>
+        <a href="{{ url_for('aboutus') }}" class="footer-link">О нас</a>  
+        <a href="https://vk.com/pcsolutionweb" target="_blank" class="footer-link">Группа ВКонтакте</a>
+        <a href="{{ url_for('privacy_policy') }}" class="footer-link">Политика конфиденциальности</a>
+    </div>
+  </footer>
+</body>
+</html>

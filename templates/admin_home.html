@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Панель Администратора</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="./admin.css" rel="stylesheet">
+    <link href="./submenu.css" rel="stylesheet">
+
+    <style>
+        body {
+            padding-top: 0px; /* Adjusted for Bootstrap navbar height */
+        }
+        #admin-navbar-collapse{
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#admin-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Панель Администратора</a>
+        </div>
+        <!-- navbar content -->
+        <div class="collapse navbar-collapse" id="admin-navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="http://127.0.0.1:5000/admin/">Главная</a>
+                  </li>
+                  <li>
+                    <a href="http://127.0.0.1:5000/admin/user/">Пользователи</a>
+                  </li>
+                  <li>
+                    <a href="http://127.0.0.1:5000/admin/news/">Новости</a>
+                  </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                  <li>
+                    <a href="http://127.0.0.1:5000/dashboard">В Личный Кабинет</a>
+                  </li>
+                <!-- Right side content if any -->
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="./moment.min.js"></script>
+<script src="./select2.min.js"></script>
+<script src="./helpers.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,531 @@
+@font-face {
+  font-family: 'aksharlight';
+  src: url("../fonts/akshar-variablefont_wght-webfont.woff2") format("woff2"),
+       url("../fonts/akshar-variablefont_wght-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-image: url("/static/images/sakura.png");
+  background-size: cover;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  transform: scale(1);
+  transform-origin: top center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.Mainnav {
+  width: 100%;
+  height: 130px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(to left, #005499, #008F99);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.Logo1 {
+  max-width: 250px;
+  max-height: 75px;
+  width: 100%;
+  height: 100%;
+}
+
+.logo-link {
+  display: inline-block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.Bottomnav {
+  position: fixed;
+  width: 100vw;
+  height: 1px;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 80px;
+}
+
+.Bottomnav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Bottomnav li {
+  margin: 0 10px;
+  font-family: "Akshar";
+  font-size: 1.5vw;
+  font-weight: 700;
+  list-style-type: none;
+}
+
+.Line {
+  width: 100vw;
+  height: 0px;
+  top: 46px;
+  position: fixed;
+  border: 2px white solid;
+}
+
+.ContactLink, .AboutLink {
+  color: black;
+  font-size: 22px;
+  font-family: "Akshar";
+  font-weight: 700;
+}
+
+#myButton {
+  background-color: #008F99;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  font-family: "Akshar";
+  font-weight: 700;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  transition: 500ms;
+}
+
+#contextMenu {
+  display: none;
+  position: absolute;
+  left: 10px;
+  top: 50px;
+  background-color: rgba(0, 143, 153, 0.8);
+  min-width: 160px;
+  padding: 12px 16px;
+  border-radius: 10%;
+  border: solid 1px white;
+}
+
+#contextMenu a {
+  color: rgb(255, 255, 255);
+  padding: 8px 0;
+  display: block;
+  transition: 500ms;
+}
+
+.slider-container {
+  position: fixed;
+  width: 80%;
+  left: 10%;
+  top: 20%;
+  background-color: rgba(0, 145, 155, 0.993);
+  overflow: hidden;
+  border-radius: 20px;
+  border: 7px solid white;
+}
+
+.slider {
+  background-color: #171717;
+  width: 100%;
+  max-width: 768px;
+  height: auto;
+  border: 6px solid white;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.middle {
+  position: relative;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.navigation {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.bar {
+  position: relative;
+  bottom: 15px;
+  height: 8px;
+  width: 30px;
+  margin: 6px;
+  cursor: pointer;
+  background-color: #ddd;
+  opacity: .7;
+  border-radius: 10px;
+  transition: all .4s ease;
+}
+
+.bar:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+input[name="r"] {
+  position: fixed;
+  visibility: hidden;
+}
+
+.slides {
+  width: 400%;
+  height: 100%;
+  display: flex;
+  position: relative;
+}
+
+.slide {
+  width: 25%;
+  height: 100%;
+  transition: all .6s ease;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.slide img {
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+#r1:checked ~ .s1 {
+  margin-left: 0;
+}
+
+#r2:checked ~ .s1 {
+  margin-left: -25%;
+}
+
+#r3:checked ~ .s1 {
+  margin-left: -50%;
+}
+
+#r4:checked ~ .s1 {
+  margin-left: -75%;
+}
+
+.slide-content {
+  position: absolute;
+  bottom: 20px;
+  width: 270px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 40px;
+}
+
+.PcDesc {
+  color: white;
+  font-size: 20px;
+  font-family: "aksharlight";
+  font-weight: 700;
+  text-align: center;
+}
+
+.UserInfo {
+  display: block;
+  margin-left: 200px;
+}
+
+/* Styles for screens less than 670px wide */
+@media (max-width: 670px) {
+
+  .WelcomeTextContainer {
+    position: absolute;
+    top: 200px;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-size: 3vw;
+    font-family: "aksharlight";
+    font-weight: 700;
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  }
+
+  .InfoText, .InfoTextAdditional {
+    flex: 1;
+    margin-left: 0%;
+    text-align: center;
+    color: white;
+    font-size: 2vw;
+    font-weight: 700;
+    font-family: "aksharlight";
+    word-wrap: break-word;
+    margin-top: -31%;
+  }
+
+  .InfoBottomText {
+    flex: 1;
+    margin-left: 4%;
+    color: white;
+    font-size: 3vw;
+    font-weight: 300;
+    font-family: "aksharlight";
+    word-wrap: break-word;
+    overflow: hidden;
+    float: left;
+    text-align: center;
+    margin-top: -1%;
+  }
+
+  .cfgblock {
+    position: fixed;
+    width: 80%;
+    max-width: 1200px;
+    max-height: 500px;
+    margin-top: 130%;
+    right: 7%;
+    background-color: rgba(0, 145, 155, 0.993);
+    overflow: hidden;
+    border-radius: 20px;
+    border: 7px solid white;
+  }
+
+  .newsblock p,
+  .cfgblock p {
+    font-size: 4vw;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    margin-top: 50%;
+  }
+
+  .newsblockbottomtext,
+  .InfoBottomTextCfg {
+    font-size: 3vw;
+    text-align: center;
+    color: white;
+    margin-top: 0%;
+    max-width: 500px;
+    display: block;
+    width: 70%;
+    padding-left: 15%;
+  }
+
+  .newsimg,
+  .cfgimg {
+    width: 50%;
+    max-width: 1200px;
+    height: auto;
+    max-height: 400px;
+    float: right;
+    position: absolute;
+    top: 0%;
+    left: 22%;
+  }
+
+  .newsblock {
+    position: fixed;
+    width: 80%;
+    max-width: 1200px;
+    max-height: 400px;
+    margin-top: 215%;
+    left: 10%;
+    background-color: rgba(0, 145, 155, 0.993);
+    overflow: hidden;
+    border-radius: 20px;
+    border: 7px solid white;
+  }
+
+  .ContactLink, .AboutLink {
+    display: none;
+  }
+
+  #myButton {
+    left: 0px;
+    top: -65px;
+  }
+
+  #contextMenu {
+    max-width: 125px;
+  }
+
+  .Bottomnav li {
+    display: none;
+  }
+}
+
+/* Styles for screens wider than 670px */
+@media (min-width: 670px) {
+
+  .mobile-only {
+    display: none;
+  }
+
+  .InfoText {
+    flex: 1;
+    margin-left: 55%;
+    text-align: center;
+    color: white;
+    font-size: 2vw;
+    font-weight: 700;
+    font-family: "aksharlight";
+    margin-bottom: 5%;
+  }
+
+  .InfoTextAdditional {
+    flex: 1;
+    margin-left: 50%;
+    text-align: center;
+    color: white;
+    font-size: 2vw;
+    font-weight: 700;
+    font-family: "aksharlight";
+    margin-bottom: 5%;
+  }
+
+  .InfoBottomText {
+    position: relative;
+    flex: 1;
+    margin-left: 54%;
+    color: white;
+    font-size: min(1.8vw, 2vw);
+    font-weight: 300;
+    font-family: "aksharlight";
+    word-wrap: break-word;
+    overflow: hidden;
+    float: left;
+    text-align: center;
+  }
+
+  .WelcomeTextContainer {
+    position: absolute;
+    top: 200px;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-size: 3vw;
+    font-family: "aksharlight";
+    font-weight: 700;
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  }
+
+  .cfgblock {
+    position: fixed;
+    width: 80%;
+    height: 100%;
+    max-width: 1200px;
+    max-height: 400px;
+    top: 800px;
+    right: 0%;
+    background-color: rgba(0, 145, 155, 0.993);
+    overflow: hidden;
+    border-radius: 20px;
+    border: 7px solid white;
+  }
+
+  .cfgblock p {
+    font-size: 2vw;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 5%;
+  }
+
+  .cfgblock a {
+    font-size: 1.5vw;
+    text-align: center;
+    color: white;
+    max-width: 500px;
+    display: block;
+    width: 45%;
+    padding-left: 53%;
+  }
+
+  .cfgblock a:hover {
+    color: black;
+  }
+
+  .cfgimg {
+    width: 50%;
+    max-width: 1200px;
+    height: 100%;
+    max-height: 400px;
+    float: right;
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+  }
+
+  .newsblock {
+    position: fixed;
+    width: 80%;
+    height: 100%;
+    max-width: 1200px;
+    max-height: 400px;
+    top: 1300px;
+    left: 0%;
+    background-color: rgba(0, 145, 155, 0.993);
+    overflow: hidden;
+    border-radius: 20px;
+    border: 7px solid white;
+  }
+
+  .newsblock p {
+    font-size: 2vw;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 5%;
+  }
+
+  .newsblock a {
+    font-size: 2vw;
+    text-align: center;
+    color: white;
+    max-width: 500px;
+    display: block;
+    width: 45%;
+    padding-left: 54%;
+  }
+
+  .newsblock a:hover {
+    color: black;
+  }
+
+  .newsimg {
+    width: 50%;
+    max-width: 1200px;
+    height: 100%;
+    max-height: 400px;
+    float: right;
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+  }
+}
+
+@media (max-width: 350px) {
+  * {
+    all: unset;
+    display: none;
+  }
+
+  body {
+    background-color: black;
+  }
+}

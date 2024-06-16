@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>Сообщения пользователей</h1>
+    <ul>
+        {% for feedback in feedbacks %}
+            <li>
+                <p><strong>Email:</strong> {{ feedback.email }}</p>
+                <p><strong>Тема:</strong> {{ feedback.subject }}</p>
+                <p><strong>Сообщение:</strong> {{ feedback.message }}</p>
+                <p><strong>Дата:</strong> {{ feedback.date_posted }}</p>
+                <hr>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

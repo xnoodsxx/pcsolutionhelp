@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .feedback-form {
+            width: 400px;
+            padding: 20px;
+            border: 2px solid #000;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: black;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="feedback-form">
+            <h1>Обратная связь</h1>
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.email.label }}<br>
+                    {{ form.email(size=32) }}<br>
+                    {% for error in form.email.errors %}
+                        <span class="error-message">{{ error }}</span><br>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ form.subject.label }}<br>
+                    {{ form.subject(size=64) }}<br>
+                    {% for error in form.subject.errors %}
+                        <span class="error-message">{{ error }}</span><br>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ form.message.label }}<br>
+                    {{ form.message(rows=10, cols=40) }}<br>
+                    {% for error in form.message.errors %}
+                        <span class="error-message">{{ error }}</span><br>
+                    {% endfor %}
+                </p>
+                <p>{{ form.submit() }}</p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+{% block title %}Страница сборки{% endblock %}
+
+{% block additional_styles %}
+<!-- Дополнительные стили, если необходимо -->
+<style>
+.specs.hidden {
+display: none;
+}
+.total-price-container {
+margin-top: 20px;
+}
+.order-form {
+margin-top: 20px;
+}
+
+.modal {
+display: none; 
+position: fixed;
+z-index: 1;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0,0,0,0.4);
+padding-top: 60px;
+}
+.modal-content {
+background-color: #fefefe;
+margin: 5% auto;
+padding: 20px;
+border: 1px solid #888;
+width: 80%;
+box-shadow: 1px 1px black solid;
+background-image: radial-gradient( at 100% 100%, #32957d 30%, #248273 40%, #1c6b65 50%, #195554 60%, #194345 70%, #183438 80%, #17282c 90%, #152023 100%);
+}
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+.close
+,
+.close
+{
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="BuildPage">
+    <h1>Сборка - {{ build.name }}</h1>
+    <input type="text" id="build-name-input" placeholder="Название сборки">
+    <button id="save-build-name-btn">Сохранить</button>
+    <div class="BuildDetails">
+        <h1>Детали сборки</h1>
+        <ul>
+            {% if build.processor %}
+                <li><strong>Процессор:</strong> {{ build.processor }} (Цена: <span id="processor-price">{{ processor_price }}</span> руб.)</li>
+            {% endif %}
+            {% if build.videocard %}
+                <li><strong>Видеокарта:</strong> {{ build.videocard }} (Цена: <span id="videocard-price">{{ videocard_price }}</span> руб.)</li>
+            {% endif %}
+            {% if build.ram %}
+                <li><strong>Оперативная память:</strong> {{ build.ram }} (Цена: <span id="ram-price">{{ ram_price }}</span> руб.)</li>
+            {% endif %}
+            {% if build.motherboard %}
+                <li><strong>Материнская плата:</strong> {{ build.motherboard }} (Цена: <span id="motherboard-price">{{ motherboard_price }}</span> руб.)</li>
+            {% endif %}
+            {% if build.psu %}
+                <li><strong>Блок питания:</strong> {{ build.psu }} (Цена: <span id="psu-price">{{ psu_price }}</span> руб.)</li>
+            {% endif %}
+            {% if build.harddrive %}
+                <li><strong>Жесткий диск:</strong> {{ build.harddrive }} (Цена: <span id="harddrive-price">{{ harddrive_price }}</span> руб.)</li>
+            {% endif %}
+            {% if build.case %}
+                <li><strong>Корпус:</strong> {{ build.case }} (Цена: <span id="case-price">{{ case_price }}</span> руб.)</li>
+            {% endif %}
+            {% if build.keyboard %}
+                <li><strong>Клавиатура:</strong> {{ build.keyboard }} (Цена: <span id="keyboard-price">{{ keyboard_price }}</span> руб.)</li>
+            {% endif %}
+            {% if build.mouse %}
+                <li><strong>Мышь:</strong> {{ build.mouse }} (Цена: <span id="mouse-price">{{ mouse_price }}</span> руб.)</li>
+            {% endif %}
+            {% if build.monitor %}
+                <li><strong>Монитор:</strong> {{ build.monitor }} (Цена: <span id="monitor-price">{{ monitor_price }}</span> руб.)</li>
+            {% endif %}
+            {% if build.coolingsystem %}
+                <li><strong>Система охлаждения:</strong> {{ build.coolingsystem }} (Цена: <span id="coolingsystem-price">{{ coolingsystem_price }}</span> руб.)</li>
+            {% endif %}
+        </ul>
+    </div>
+<!-- Добавляем скрытое поле для хранения ID сборки -->
+<input type="hidden" id="build-id" value="{{ build.id }}">
+<input type="hidden" id="processor-price" name="processor_price">
+<input type="hidden" id="videocard-price" name="videocard_price">
+<input type="hidden" id="ram-price" name="ram_price">
+<input type="hidden" id="motherboard-price" name="motherboard_price">
+<input type="hidden" id="psu-price" name="psu_price">
+<input type="hidden" id="harddrive-price" name="harddrive_price">
+<input type="hidden" id="case-price" name="case_price">
+<input type="hidden" id="keyboard-price" name="keyboard_price">
+<input type="hidden" id="mouse-price" name="mouse_price">
+<input type="hidden" id="monitor-price" name="monitor_price">
+<input type="hidden" id="coolingsystem-price" name="coolingsystem_price">
+
+
+<!-- Добавляем контейнер для отображения общей стоимости -->
+<div class="total-price-container">
+    <h2>Общая стоимость: <span id="total_price">{{ build.total_price }}</span> руб.</h2>
+    <button id="order-btn">Оформить заказ</button>
+</div>
+
+<!-- Модальное окно -->
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="order-form">
+            <h2>Оформление заказа</h2>
+            <h3>Общая стоимость с наценкой: <span id="final-price">0</span> руб.</h3>
+            <label for="email">Электронная почта:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="city">Город:</label>
+            <input type="text" id="city" name="city" required>
+            <label for="street">Улица:</label>
+            <input type="text" id="street" name="street" required>
+            <label for="house">Дом:</label>
+            <input type="text" id="house" name="house" required>
+            <label for="apartment">Квартира:</label>
+            <input type="text" id="apartment" name="apartment">
+            <input type="hidden" id="address" name="address">
+            <button id="confirm-order-btn">Подтвердить заказ</button>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var buildId = document.getElementById('build-id').value;
+    var buildNameInput = document.getElementById('build-name-input');
+    var totalPriceElement = document.getElementById('total_price');
+    var finalPriceElement = document.getElementById('final-price');
+    var modal = document.getElementById("orderModal");
+    var orderBtn = document.getElementById("order-btn");
+    var span = document.getElementsByClassName("close")[0];
+
+    function displayBuildComponents() {
+        fetch('/get_build_components/' + buildId)
+            .then(response => response.json())
+            .then(data => {
+                buildNameInput.value = data.name;
+                totalPriceElement.textContent = data.total_price;
+                document.getElementById('processor-price').textContent = data.processor_price;
+                document.getElementById('videocard-price').textContent = data.videocard_price;
+                document.getElementById('ram-price').textContent = data.ram_price;
+                document.getElementById('motherboard-price').textContent = data.motherboard_price;
+                document.getElementById('psu-price').textContent = data.psu_price;
+                document.getElementById('harddrive-price').textContent = data.harddrive_price;
+                document.getElementById('case-price').textContent = data.case_price;
+                document.getElementById('keyboard-price').textContent = data.keyboard_price;
+                document.getElementById('mouse-price').textContent = data.mouse_price;
+                document.getElementById('monitor-price').textContent = data.monitor_price;
+                document.getElementById('coolingsystem-price').textContent = data.coolingsystem_price;
+
+                var totalPrice = 0;
+                if (typeof data === 'object' && data !== null) {
+                    Object.keys(data).forEach(key => {
+                        if (data[key] !== null && key.includes('_price')) {
+                            var componentPrice = parseFloat(data[key]);
+                            totalPrice += componentPrice;
+                            var hiddenField = document.getElementById(key);
+                            if (hiddenField) {
+                                hiddenField.value = componentPrice;
+                            }
+                        }
+                    });
+                }
+                totalPriceElement.textContent = totalPrice.toFixed(2);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    displayBuildComponents();
+
+    document.getElementById('save-build-name-btn').addEventListener('click', function() {
+        fetch('/change_build_name/' + buildId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                new_name: buildNameInput.value
+            }),
+        }).then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert('Название сборки сохранено');
+            } else {
+                alert('Ошибка при сохранении названия сборки');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    orderBtn.onclick = function() {
+        var markupRate = 1.20;
+        var totalPrice = parseFloat(totalPriceElement.textContent);
+        var finalPrice = totalPrice * markupRate;
+        finalPriceElement.textContent = finalPrice.toFixed(2);
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    document.getElementById('confirm-order-btn').addEventListener('click', function() {
+        var email = document.getElementById('email').value;
+        var city = document.getElementById('city').value;
+        var street = document.getElementById('street').value;
+        var house = document.getElementById('house').value;
+        var apartment = document.getElementById('apartment').value;
+        var address = city + ', ' + street + ', ' + house + (apartment ? ', ' + apartment : '');
+
+        fetch('/submit_order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                build_id: buildId,
+                email: email,
+                address: address,
+                totalPrice: parseFloat(totalPriceElement.textContent),
+                final_price: parseFloat(finalPriceElement.textContent)
+            }),
+        }).then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Заказ подтвержден');
+                modal.style.display = "none";
+            } else {
+                alert('Сообщение: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Произошла ошибка при оформлении заказа. Пожалуйста, попробуйте еще раз.');
+        });
+    });
+});
+</script>
+<script src="{{ url_for('static', filename='scripts/change-build-name.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/build_parse.js') }}"></script>
+{% endblock %}

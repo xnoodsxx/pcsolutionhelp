@@ -1,0 +1,632 @@
+@font-face {
+  font-family: 'aksharlight';
+  src:  url("../fonts/akshar-variablefont_wght-webfont.woff2") format("woff2"),
+        url("../fonts/akshar-variablefont_wght-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+
+}
+ 
+
+
+ 
+@media (max-width: 350px) {
+  * {
+    all: unset;
+    display: none;
+  }
+  
+  /* Черный фон */
+  body {
+    background-image: "C:\Users\asagiri\Desktop\PCwebDatabase\static\images\cherry-blossom-japan-autumn-kpg71n368dhkru9k.gif";
+    background-color: black;
+  }
+} 
+
+ /* Стили для мобильных устройств */
+@media (max-width: 670px) {
+  body {
+    background-size: cover;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    transform: scale(1); /* Значение 1 означает 100% масштаб */
+    transform-origin: top center; /* Устанавливает точку масштабирования в верхний левый угол */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    background: #171717;
+  }
+ 
+  .slider-container {
+    position: fixed;
+    width: 80%;
+    max-height: 400px;
+    left: 10%;
+    margin-top: 55%;
+    background-color: rgba(0, 145, 155, 0.993);
+    overflow: hidden;
+    border-radius: 20px;
+    border: 7px solid white;
+  }
+
+  .slider {
+    background-color: #171717;
+    width: 100%;
+    max-width: 768px;
+    height: auto;
+    border: 6px solid white;
+    border-radius: 20px;
+    margin-top: 27%;
+    margin-left: 50%;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+  }
+
+  .middle {
+    position: relative;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .navigation {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+  }
+
+  .bar {
+    position: relative;
+    bottom: 15px;
+    height: 8px;
+    width: 30px;
+    margin: 6px;
+    cursor: pointer;
+    background-color: #ddd;
+    opacity: .7;
+    border-radius: 10px;
+    transition: all .4s ease;
+  }
+
+  .bar:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  input[name="r"] {
+    position: fixed;
+    visibility: hidden;
+  }
+
+  .slides {
+    width: 400%;
+    height: 100%;
+    display: flex;
+    position: relative;
+  }
+
+  .slide {
+    width: 25%;
+    height: 100%;
+    transition: all .6s ease;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .slide img {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+  }
+
+  #r1:checked ~ .s1 {
+    margin-left: 0;
+  }
+
+  #r2:checked ~ .s1 {
+    margin-left: -25%;
+  }
+
+  #r3:checked ~ .s1 {
+    margin-left: -50%;
+  }
+
+  #r4:checked ~ .s1 {
+    margin-left: -75%;
+  }
+
+  .slide-content {
+    position: absolute;
+    bottom: 20px;
+    width: 270px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px;
+    border-radius: 40px;
+  }
+
+  .PcDesc {
+    color: white;
+    font-size: 20px;
+    font-family: "aksharlight";
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .Mainnav {
+    width: 100%;
+    height: 130px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to left, #005499, #008F99);
+  }
+  
+  .Logo1 {
+    position: fixed;
+    top: 13%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 250px;
+    max-height: 75px;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .logo-link {
+    display: inline-block;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  .Bottomnav {
+    position: fixed;
+    width: 100vw;
+    height: 1px;
+    list-style-type: none;
+    list-style-position: inside;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 80px;
+  }
+
+  .Bottomnav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right:0%;
+  }
+  
+  .Bottomnav li a:hover {
+    color: white;
+  }
+  
+  .Mainnav a:hover {
+    color: white;
+  }
+  
+  .Bottomnav li {
+    display: none;
+  }
+  
+  .Line {
+    width: 100vw;
+    height: 0px;
+    top: 46px;
+    position: fixed;
+    border: 2px white solid;
+  }
+  
+  .ContactLink {
+    display: none;
+  }
+  
+  .AboutLink {
+    display: none;
+  }
+  
+  #myButton {
+    position: relative;
+    left: 0px;
+    top: -65px;
+    background-color: #008F99;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-family: "Akshar";
+    font-weight: 700;
+    padding: 8px 16px;
+    border: none;
+    /* border-left: solid 2px white;
+    border-right: solid 2px white; */
+    cursor: pointer;
+    transition: 500ms;
+  }
+  
+  #myButton:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  #contextMenu {
+    display: none;
+    position: absolute;
+    left: 10px;
+    top: 50px;
+    background-color: rgba(0, 143, 153, 0.8);
+    max-height: 200px;
+    max-width: 125px;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 10%;
+    border: solid 1px white;
+  }
+  
+  #contextMenu a {
+    color: rgb(255, 255, 255);
+    padding: 2% 0; 
+    display: block;
+    transition: 500ms;
+  }
+  
+  #contextMenu a:hover {
+    background-color: rgb((0, 2, 145), 241, 241);
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  }
+  
+    .ComputerPlaceHolder {
+      width: 200px;
+      height: 200px;
+    }
+    
+    .ComputerPlaceHolder:hover {
+      opacity: 0.8;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: 500ms;
+    }
+  
+    ul {
+      list-style-type: none;
+    }
+
+
+
+
+
+/* Стили для десктопов */
+@media (min-width: 670px){
+  body {
+    background-image: url("/static/images/sakura.png");
+    background-size: cover;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    transform: scale(1); /* Значение 1 означает 100% масштаб */
+    transform-origin: top center; /* Устанавливает точку масштабирования в верхний левый угол */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mobile-only {
+    display: none !important;
+  }
+
+  .slider-container {
+    position: fixed;
+    width: 80%;
+    left: 0%;
+    top: 300px;
+    background-color: rgba(0, 145, 155, 0.993);
+    overflow: hidden;
+    border-radius: 20px;
+    border: 7px solid white;
+    height: 100%;
+    max-width: 1200px;
+    max-height: 400px;
+  }
+
+  .slider {
+    background-color: #171717;
+    width: 55%;
+    max-width: 620px;
+    height: 100%;
+    border: 6px solid white;
+    border-radius: 20px;
+    top: 50.4%;
+    left: 25.8%;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+    position: absolute;
+  }
+
+  .middle {
+    position: relative;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .navigation {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+  }
+
+  .bar {
+    position: relative;
+    bottom: 15px;
+    height: 8px;
+    width: 30px;
+    margin: 6px;
+    cursor: pointer;
+    background-color: #ddd;
+    opacity: .7;
+    border-radius: 10px;
+    transition: all .4s ease;
+  }
+
+  .bar:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  input[name="r"] {
+    position: fixed;
+    visibility: hidden;
+  }
+
+  .slides {
+    width: 400%;
+    height: 100%;
+    display: flex;
+    position: relative;
+  }
+
+  .slide {
+    width: 25%;
+    height: 100%;
+    transition: all .6s ease;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .slide img {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+  }
+
+  #r1:checked ~ .s1 {
+    margin-left: 0;
+  }
+
+  #r2:checked ~ .s1 {
+    margin-left: -25%;
+  }
+
+  #r3:checked ~ .s1 {
+    margin-left: -50%;
+  }
+
+  #r4:checked ~ .s1 {
+    margin-left: -75%;
+  }
+
+  .slide-content {
+    position: absolute;
+    bottom: 20px;
+    width: 270px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px;
+    border-radius: 40px;
+  }
+
+  .PcDesc {
+    color: white;
+    font-size: 20px;
+    font-family: "aksharlight";
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .Mainnav {
+    width: 100%;
+    height: 130px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-image:linear-gradient(to left, #005499, #008F99);
+  }
+
+  .Logo1 {
+    position: absolute;
+    width: 250px;
+    height: 75px;
+    left: 10px;
+    top: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logo-link {
+    display: inline-block;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .Bottomnav {
+    position: fixed;
+    width: 100vw;
+    height: 1px;
+    list-style-type: none;
+    list-style-position: inside;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 80px;
+  }
+
+  .Bottomnav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right:0%;
+  }
+
+  .Bottomnav li a:hover {
+    color: white;
+  }
+
+  .Mainnav a:hover {
+    color: white;
+  }
+
+  .Bottomnav li {
+    margin: 0 10px;
+    font-family: "Akshar";
+    font-size: 1.5vw;
+    font-weight: 700;
+    list-style-type: none;
+    margin-right: 15px;
+    text-align: right;
+  }
+
+  .Line {
+    width: 100vw;
+    height: 0px;
+    top: 46px;
+    position: absolute;
+    border: 2px white solid;
+  }
+
+  .ContactLink {
+    position: fixed;
+    top: 15px;
+    right: 115px;
+    width: 110px;
+    height: 30px;
+    color: black;
+    font-size: 22px;
+    font-family: "Akshar";
+    font-weight: 700;
+    word-wrap: break-word;
+  }
+
+  .AboutLink {
+    position: fixed;
+    top: 15px;
+    right: 0;
+    width: 100px;
+    height: 30px;
+    color: black;
+    font-size: 22px;
+    font-family: "Akshar";
+    font-weight: 700;
+    word-wrap: break-word;
+  }
+
+  .UserInfo {
+    display: block;
+    margin-left: 200px;
+  }
+
+  #myButton {
+    position: relative;
+    left: 16px;
+    top: -63px;
+    /* margin-top: -10px; */
+    background-color: #008F99;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-family: "Akshar";
+    font-weight: 700;
+    padding: 8px 16px;
+    border: none;
+    border-left: solid 2px white;
+    border-right: solid 2px white;
+    cursor: pointer;
+    transition: 500ms;
+  }
+
+  #myButton:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  #contextMenu {
+    display: none;
+    position: absolute;
+    left: 10px;
+    top: 50px;
+    background-color: rgba(0, 143, 153, 0.8);
+    min-width: 160px;
+    max-width: 250px;
+    padding: 12px 16px;
+    border-radius: 10%;
+    border: solid 1px white;
+    z-index: 9999;
+  }
+
+  #contextMenu a {
+    color: rgb(255, 255, 255);
+    padding: 8px 0;
+    display: block;
+    transition: 500ms;
+  }
+
+  #contextMenu a:hover {
+    background-color: rgb((0, 2, 145), 241, 241);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  }
+
+  .ComputerPlaceHolder {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .ComputerPlaceHolder:hover {
+    opacity: 0.8;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: 500ms;
+  }
+
+  ul {
+    list-style-type: none;
+  }

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Обработка Заказов{% endblock %}
+{% block content %}
+    <h1>Список заказов</h1>
+    <div id="orders-container">
+        <!-- Здесь будут данные о заказах -->
+    </div>
+    <a href="/" class="go-back-button">На главную</a>
+
+    <style>
+        /* Стили для контейнера каждого заказа */
+        .order-container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Стили для ссылки на подробную информацию о заказе */
+        .order-details-link {
+            display: inline-block;
+            margin-top: 5px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        .order-details-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <script>
+        // Функция для получения данных о заказах через AJAX
+        function getOrders() {
+            fetch('/get_orders')
+                .then(response => response.json())
+                .then(data => {
+                    const ordersContainer = document.getElementById('orders-container');
+                    ordersContainer.innerHTML = ''; // Очищаем содержимое контейнера заказов
+
+                    data.forEach(order => {
+                        // Создаем контейнер для каждого заказа
+                        const orderContainer = document.createElement('div');
+                        orderContainer.classList.add('order-container');
+
+                        // Заполняем контейнер данными о заказе
+                        orderContainer.innerHTML = `
+                            <p><strong>ID заказа:</strong> ${order.id}</p>
+                            <p><strong>Пользователь:</strong> ${order.user}</p>
+                            <p><strong>Адрес:</strong> ${order.address}</p>
+                            <p><strong>Общая стоимость:</strong> ${order.total_price}</p>
+                            <p><strong>Итоговая стоимость:</strong> ${order.final_price}</p>
+                            <a href="/order_details/${order.id}" class="order-details-link">Подробности</a>
+                        `;
+
+                        // Добавляем контейнер заказа в общий контейнер заказов
+                        ordersContainer.appendChild(orderContainer);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Вызываем функцию для получения заказов при загрузке страницы
+        document.addEventListener('DOMContentLoaded', getOrders);
+    </script>
+{% endblock %}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>О нас</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="assets/images/comp.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/images/comp.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<style>
+
+    .company-info {
+        position: relative;
+        top: 50px;
+        width: fit-content;
+        margin: auto;
+        text-align: justify;
+        border: 2px solid black; /* Добавлен черный бордер */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Добавлена тень */
+        padding: 20px; /* Добавлен внутренний отступ */
+        color: black;
+        background-color: white;
+        transform: translateY(-100px);
+    }
+</style>
+
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="company-info">
+        <h2>О компании PCSolution</h2>
+        <p>Компания PCSolution была основана во Владивостоке в 1999 году.</p>
+        <p>Мы специализируемся на предоставлении услуг по подбору комплектующих, созданию сборок компьютеров и сборке предварительно подобранных конфигураций.</p>
+        <p>Наша команда состоит из опытных специалистов, готовых помочь вам подобрать оптимальные комплектующие для вашего ПК в соответствии с вашими потребностями и бюджетом.</p>
+        <p>Мы также предлагаем услуги сборки компьютеров по вашим требованиям, обеспечивая высокое качество сборки и проверку каждой детали перед передачей заказа.</p>
+        <p>PCSolution - ваш надежный партнер в мире цифровых технологий!</p>
+    </div>
+    {% endblock %}
+</body>
+</html>

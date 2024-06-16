@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Компьютерные Новости</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/comp.ico') }}">  
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/comp.ico') }}"> 
+        <style>
+            .container {
+              display: inline-block;
+              border: 1px solid white; 
+              background-image: linear-gradient(to left, #005499, #008F99);
+              padding: 10px; /* Внутренний отступ */
+              max-width: 300px;
+              max-height: 400px;
+              margin-top: 140px;
+              margin-left: 120px;
+              text-align: center;
+            }
+
+            .container p{
+              font-family: "aksharlight";
+              font-size: 20px;
+              text-align: center;
+              overflow-wrap: break-word;
+              position: relative;
+              color: white;
+            }
+
+            .container a{
+              font-family: "aksharlight";
+              font-size: 25px;
+              overflow-wrap: break-word;
+              margin-top: 5px;
+              color: black;
+            }
+
+            .container a:hover{
+              color: white;
+              transition: 500ms;
+            }
+            
+
+
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="Mainwindow">
+            <div class="Mainnav">
+              <div class="Line"></div>
+              <a href="/contacts" class="ContactLink">Контакты</a>
+              <a href="/aboutus" class="AboutLink">О нас</a>
+              <div class="Logo">
+                <a href="/index" class="logo-link">
+                  <img class="Logo1" src="{{ url_for('static', filename='images/PClogo.png') }}">
+                </a>
+              </div>
+              <button id="myButton" onclick="toggleContextMenu(event)">меню</button>
+              <script src="{{ url_for('static', filename='scripts/transform-function.js') }}"></script> 
+              <div id="contextMenu">
+                <a href="#">Личный кабинет</a>
+                <a href="#">Ваши сборки</a>
+              </div>
+            </div>
+            <div class="Bottomnav">
+              <ul>
+                <li><a href="/index">Главная Страница</a></li>
+                <li><a href="https://vk.com/pcsolutionweb">Группа Вконтакте</a></li>
+                <li><a href="/configurator">Конфигуратор</a></li>
+              </ul>
+            </div>
+            <div>
+                <div class="container" id="container1">
+                  <p id="P1">Новый Threadripper Pro 7995WX</p>
+                  <a id="A1" href="FirstNews.html">Оверклокер из команды AMD overclockers установил новый рекорд в синтетических тестах на новом процессоре Threadripper Pro 7995WX</a>
+                </div>
+                <div class="container" id="container2">
+                  <p id="P2">Новый Threadripper Pro 7995WX</p>
+                  <a id="A2">Оверклокер из команды AMD overclockers установил новый рекорд в синтетических тестах на новом процессоре Threadripper Pro 7995WX</a>
+                </div>
+                <div class="container" id="container3">
+                  <p id="P3">Новый Threadripper Pro 7995WX</p>
+                  <a id="A3">Оверклокер из команды AMD overclockers установил новый рекорд в синтетических тестах на новом процессоре Threadripper Pro 7995WX</a>
+                </div>
+                <div class="container" id="container4">
+                  <p id="P4">Новый Threadripper Pro 7995WX</p>
+                  <a id="A4">Оверклокер из команды AMD overclockers установил новый рекорд в синтетических тестах на новом процессоре Threadripper Pro 7995WX</a>
+                </div>
+                <div class="container" id="container5">
+                  <p id="P5">Новый Threadripper Pro 7995WX</p>
+                  <a id="A5">Оверклокер из команды AMD overclockers установил новый рекорд в синтетических тестах на новом процессоре Threadripper Pro 7995WX</a>
+                </div>
+                <div class="container" id="container6">
+                  <p id="P6">Новый Threadripper Pro 7995WX</p>
+                  <a id="A6">Оверклокер из команды AMD overclockers установил новый рекорд в синтетических тестах на новом процессоре Threadripper Pro 7995WX</a>
+                </div>
+                <div class="container" id="container7">
+                  <p id="P7">Новый Threadripper Pro 7995WX</p>
+                  <a id="A7">Оверклокер из команды AMD overclockers установил новый рекорд в синтетических тестах на новом процессоре Threadripper Pro 7995WX</a>
+                </div>
+                <div class="container" id="container8">
+                  <p id="P8">Новый Threadripper Pro 7995WX</p>
+                  <a id="A8">Оверклокер из команды AMD overclockers установил новый рекорд в синтетических тестах на новом процессоре Threadripper Pro 7995WX</a>
+                </div>
+                <div class="container" id="container9">
+                  <p id="P9">Новый Threadripper Pro 7995WX</p>
+                  <a id="A9">Оверклокер из команды AMD overclockers установил новый рекорд в синтетических тестах на новом процессоре Threadripper Pro 7995WX</a>
+                </div>
+                <div class="container" id="container10">
+                  <p id="P10">Новый Threadripper Pro 7995WX</p>
+                  <a id="A10">Оверклокер из команды AMD overclockers установил новый рекорд в синтетических тестах на новом процессоре Threadripper Pro 7995WX</a>
+                </div>
+              </div>
+            </div>
+
+        <script src="" async defer></script>
+    </body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add News</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<style>
+    /* Дополнительные стили для create_news.html */
+    
+    .form-container {
+        background-color: #f9f9f9;
+        border: 7px solid #1c6b65;
+        margin: 20px auto;
+        padding: 20px;
+        max-width: 500px;
+        box-sizing: border-box;
+        border-radius: 10px;
+    }
+
+    .form-container h1 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .form-group input[type="submit"] {
+        background-color: #187E70;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        padding: 10px 20px;
+    }
+
+    .form-group input[type="submit"]:hover {
+        background-color: #1c6b65;
+    }
+
+    .messages {
+        color: red;
+        margin-bottom: 20px;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .back-link a {
+        color: #187E70;
+        text-decoration: none;
+    }
+
+    .back-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+<div class="form-container">
+    <h1>Add News</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            {{ form.title(size=80) }}
+        </div>
+        
+        <div class="form-group">
+            <label for="content">Content:</label>
+            {{ form.content(rows=10) }}
+        </div>
+        
+        <div class="form-group">
+            <label for="image">Image:</label>
+            {{ form.image() }}
+        </div>
+        
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <input type="submit" value="Add News">
+        </div>
+    </form>
+
+    <div class="back-link">
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+</div>
+</body>
+</html>

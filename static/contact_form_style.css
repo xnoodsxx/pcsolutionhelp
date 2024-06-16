@@ -1,0 +1,59 @@
+/* static/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-image: radial-gradient(circle at 100% 100%, #6abd82 0, #56b384 10%, #43a682 20%, #32957d 30%, #248273 40%, #1c6b65 50%, #195554 60%, #194345 70%, #183438 80%, #17282c 90%, #152023 100%);
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-repeat: repeat;
+    background-attachment: fixed;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 5px;
+  }
+  
+  input, textarea {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  p {
+    text-align: center;
+    color: green;
+  }
+  

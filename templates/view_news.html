@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ news_item.title }}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Добавлена ссылка на стиль для view_news.html -->
+</head>
+<style>
+    /* Стили для view_news.html */
+
+    .news-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 7px solid #1c6b65;
+        border-radius: 10px;
+    }
+
+    h2,
+    h3 {
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    p {
+        margin-bottom: 15px;
+        color: #666;
+    }
+
+    .news-image {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+
+    .back-link {
+        display: block;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .back-link a {
+        color: #187E70;
+        text-decoration: none;
+    }
+
+    .back-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+<body>
+    {% extends 'base.html' %}
+
+    {% block title %}{{ news_item.title }}{% endblock %}
+
+    {% block content %}
+      <div class="news-container">
+          <h2>{{ news_item.title }}</h2>
+          {% if news_item.image %}
+              <img src="{{ url_for('static', filename='uploads/' + news_item.image) }}" alt="News Image" class="news-image">
+          {% endif %}
+          <p>{{ news_item.content }}</p>
+          <p>Created at: {{ news_item.created_at }}</p>
+          <div class="back-link">
+              <a href="{{ url_for('news') }}">Back to News</a>
+          </div>
+      </div>
+    {% endblock %}
+
+    <script src="" async defer></script>
+</body>
+</html>

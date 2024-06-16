@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/comp.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/comp.ico') }}">
+    <title>Личный кабинет</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #cccccc;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        h1 {
+            color: #3498db;
+        }
+        .welcome-msg{
+            position: relative;
+            top: 0px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .user-info {
+            text-align: left;
+            margin-left: 30px;
+        
+        }
+
+        .avatar-container {
+            display: inline-block;
+            margin-top: 30px;
+            margin-left: 30px;
+        }
+
+        img {
+            max-width: 200px;
+            border-radius: 5%;
+        }
+
+        .logout-button {
+            position: absolute;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            max-width: 50px;
+            margin: 10px 10px;
+            right: 0px;
+            bottom: 0px;
+        }
+
+        .logout-button:hover {
+            background-color: #2980b9;
+        }
+
+        .go-back-button {
+            position: absolute;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            max-width: 90px;
+            margin: 25px 10px;
+            right: 0px;
+            bottom: 30px;
+            text-align: revert-layer;
+        }
+
+        .go-back-button:hover {
+            background-color: #2980b9;
+        }
+
+        .avatar-upload label {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .avatar-upload label:hover {
+            background-color: #2980b9;
+            color: #6abd82;
+        }
+
+        .logo-link {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            margin-right: 60px;
+        }
+
+        .logo-link:hover {
+            background-color: #2980b9;
+        }
+
+        .CreateNewsBtn {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .CreateNewsBtn:hover {
+            background-color: #2980b9;
+        }
+
+        .AdminPanelBtn {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .AdminPanelBtn:hover {
+            background-color: #2980b9;
+        }
+
+        .avatar-upload input[type="file"] {
+            display: none;
+        }
+
+
+        /* Дополнительные стили для боковой панели */
+        .sidebar {
+            float: left;
+            position: absolute;
+            width: 100%;
+            max-width: 400px;
+            background-color: #248273;
+            padding: 20px;
+            left: 50%;
+            top: 100px;
+            border: 2px solid black;
+            box-shadow: 0 4px 7px 10px rgba(0, 0, 0, 0.1);
+            transform: translateX(-50%); /* Центрируем по горизонтали */
+            text-align: center; /* Выравниваем текст по центру */
+        }
+
+        .sidebar h2 {
+            color: white;
+            padding-bottom: 20px;
+        }
+
+        .sidebar a {
+            background-color: #3498db;
+            transition: background-color 0.3s ease;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 10px 20px; /* Добавляем отступы */
+            border-radius: 4px; /* Добавляем скругление углов */
+        }
+
+        .sidebar a:hover {
+            color:  #6abd82;
+            background-color: #2980b9;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0; /* Убираем внешние отступы у списка */
+            display: flex; /* Используем flexbox */
+            flex-direction: column; /* Располагаем элементы вертикально */
+            align-items: center; /* Центрируем элементы по горизонтали */
+        }
+
+        .sidebar ul li {
+            margin-bottom: 25px;
+        }
+
+        /* Стили для модального окна */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #1c6b65;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 100%;
+            max-width: 300px;
+            position:fixed;
+            left: calc(50% - 150px);
+            display: ruby;
+        }
+
+        .modal h1,h2,h3{
+            color: #2980b9;
+        }
+
+        .close{
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .confirm-button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .confirm-button:hover {
+            background-color: #2980b9;
+        }
+
+        #preview-avatar {
+            max-width: 200px;
+            border-radius: 5%;
+            border: 2px solid Black;
+        }
+        .user-profile{
+            position: relative;
+            max-width: 300px;
+            margin: 10px 10px;
+            padding: 10px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="welcome-msg">Личный кабинет</h1>
+    <div class="user-profile">
+        <div class="avatar-container">
+            {% if user.avatar %}            
+            <img src="{{ url_for('static', filename='avatars/' + user.avatar) }}" alt="Аватарка">
+            {% else %}
+            <p>No avatar available</p>
+            {% endif %}
+        </div>
+        <div class="user-info">
+            {% if current_user.is_authenticated %}
+            <p>Добро пожаловать, {{ current_user.username }}!</p>
+            <p>Ваш ID {{ current_user.id }}.</p>
+            {% if current_user.is_admin %}
+            <a href="{{ url_for('view_orders') }}" class="AdminPanelBtn">Просмотр заказов</a>
+            <a href="{{ url_for('create_news') }}" class="CreateNewsBtn">Создать новость</a>
+            <a href="{{ url_for('admin_feedbacks') }}" class="AdminPanelBtn">Просмотр сообщений</a>
+            {% endif %}
+            {% else %}
+            <p>Добро пожаловать!</p>
+            <p><a href="{{ url_for('login') }}">Login</a></p>
+            {% endif %}
+        </div>
+        <div class="avatar-upload">
+            <label for="avatar">Загрузить или обновить аватар</label>
+            <input type="file" name="avatar" id="avatar" onchange="previewImage(event)">
+        </div>
+    </div>
+    <a href="{{ url_for('index') }}" class="go-back-button">На Главную</a>
+    <a href="{{ url_for('logout') }}" class="logout-button">Выход</a>
+    <div class="sidebar">
+        <h2>Сборки пользователя</h2>
+        <ul>
+            {% for build in builds %}
+            <li>
+                <a href="/build/{{ build.id }}">{{ build.name }}</a>
+                <button onclick="deleteBuild('{{ build.id }}')">Удалить</button>
+            </li>
+            {% endfor %}
+        </ul>
+        <!-- Пагинация -->
+        {% if builds.has_prev %}
+        <a href="{{ url_for('user_builds', page=builds.prev_num) }}">Предыдущая</a>
+        {% endif %}
+        {% if builds.has_next %}
+        <a href="{{ url_for('user_builds', page=builds.next_num) }}">Следующая</a>
+        {% endif %}
+    </div>
+    <!-- Модальное окно для предпросмотра аватара -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Предпросмотр аватара</h2>
+            <img id="preview-avatar" src="#" alt="Предпросмотр">
+            <br>
+            <button class="confirm-button" onclick="submitForm()">Подтвердить</button>
+        </div>
+    </div>
+
+    <!-- Скрытая форма для отправки аватара -->
+    <form id="avatarForm" action="{{ url_for('update_avatar') }}" method="post" enctype="multipart/form-data" style="display: none;">
+        <input type="file" name="avatar" id="hidden-avatar">
+    </form>
+
+    <script>
+        function openModal() {
+            document.getElementById('myModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+            // Сброс значения поля input type="file"
+            document.getElementById('avatar-input').value = "";
+        }
+
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('preview-avatar');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+            document.getElementById('hidden-avatar').files = event.target.files;
+            openModal();
+        }
+
+        function submitForm() {
+            document.getElementById('avatarForm').submit();
+        }
+
+        function deleteBuild(buildId) {
+            if (confirm("Вы уверены, что хотите удалить эту сборку?")) {
+                // Отправка запроса на удаление сборки
+                fetch(`/delete_build/${buildId}`, {                    
+                    method: 'DELETE',
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Если сборка успешно удалена, перезагружаем страницу
+                        window.location.reload();
+                    } else {
+                        throw new Error('Ошибка удаления сборки');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Обработка ошибки удаления сборки
+                    alert('Ошибка удаления сборки. Пожалуйста, попробуйте еще раз.');
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
+

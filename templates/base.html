@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}PCsolutionHelp{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    {% block additional_styles %}{% endblock %}
+</head>
+<style>
+</style>
+<body>
+    <div class="Mainnav">
+        <p class="UserInfo">Добро пожаловать</p>
+        <div class="Line"></div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('contact') }}" class="ContactLink">Контакты</a></li>
+            <li><a href="{{ url_for('aboutus') }}" class="AboutLink">О нас</a></li>
+        </ul>
+        <div class="Logo">
+          <a href="{{ url_for('index') }}" class="logo-link">
+            <img class="Logo1" src="{{ url_for('static', filename='images/PClogo.png') }}" alt="PC Logo">
+          </a>
+        </div>
+        <button id="myButton" onclick="toggleContextMenu(event)">меню</button>
+        <script src="{{ url_for('static', filename='scripts/context-menu.js') }}"></script>
+        <div id="contextMenu" style="z-index: 9999;">
+          <a href="{{ url_for('login') }}" id="personalAccountLink">Личный кабинет</a>
+          <p>{{ current_user.username }}! Твой ID: {{ current_user.id }}</p>
+          {% if current_user.is_authenticated %} <!-- Проверяем аутентификацию пользователя -->
+                {% if current_user.avatar %}
+                    <img src="{{ url_for('static', filename='avatars/' + current_user.avatar) }}" alt="Аватар пользователя" style="padding-left: 0%;width: 100%;max-width: 150px;max-height: 100px;height: auto;">
+                {% else %}
+                    <p>У пользователя нет аватарки</p>
+                {% endif %}
+                <p><a href="{{ url_for('logout') }}" class="logout-button">Выйти</a></p> <!-- Отображаем кнопку "Выйти" -->
+            {% else %}
+                <p><a href="{{ url_for('login') }}">Войти</a></p> <!-- Если не аутентифицирован, отображаем ссылку на вход -->
+            {% endif %}
+          <a href="configurator.html" class="mobile-only">Конфигуратор</a>
+          <a href="newspage.html" class="mobile-only">Новости</a>
+          <a href="https://vk.com/pcsolutionweb" class="mobile-only">Группа Вконтакте</a>
+        </div>
+      </div>
+      <div class="Bottomnav">
+        <ul>
+          <li><a href="/news">Новости</a></li>
+          <li><a href="https://vk.com/pcsolutionweb">Группа Вконтакте</a></li>
+          <li><a href="/configurator">Конфигуратор</a></li>
+        </ul>
+      </div>
+
+  <div class="PageContent">
+      {% block content %}{% endblock %}
+  </div> 
+
+    <!-- Footer -->
+<footer class="footer">
+  <div class="footer-links">
+      <a href="{{ url_for('contact') }}" class="footer-link">Контакты</a>
+      <a href="{{ url_for('aboutus') }}" class="footer-link">О нас</a>  
+      <a href="https://vk.com/pcsolutionweb" target="_blank" class="footer-link">Группа ВКонтакте</a>
+      <a href="{{ url_for('privacy_policy') }}" class="footer-link">Политика конфиденциальности</a>
+  </div>
+</footer>
+
+    <script src="" async defer></script>
+</body>
+</html>
